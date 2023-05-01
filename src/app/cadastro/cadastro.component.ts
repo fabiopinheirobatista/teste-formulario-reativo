@@ -8,9 +8,13 @@ import { Renderer2 } from '@angular/core';
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.css']
 })
-export class CadastroComponent implements OnInit {
-
-  constructor(private router: Router, private renderer: Renderer2) { }
+export class CadastroComponent {
+  
+  ocultarOpcoes: boolean = false;
+  controleComponente: string = 'Mostrar CAMPOS';
+  
+  constructor(private router: Router,
+              private renderer: Renderer2) { }
 
   ngOnInit(): void {
   }
@@ -18,14 +22,18 @@ export class CadastroComponent implements OnInit {
   cadastrar(form: NgForm){
     if(form.valid) {
       this.router.navigate(['./sucesso']);
-      this.focoInput();
     } else {
       alert('Formulário invalido!')
     }
-    console.log(form.controls);
   }
 
-  focoInput() {
-    this.renderer.selectRootElement('#cidade').focus();
+  mostrarcomponentes() {
+    if(this.ocultarOpcoes) {
+      this.ocultarOpcoes = !this.ocultarOpcoes;
+      this.controleComponente = 'Mostrar CAMPOS';
+    } else {
+      this.ocultarOpcoes = !this.ocultarOpcoes;
+      this.controleComponente = 'Esconder CAMPOS';
+    }
   }
 }
